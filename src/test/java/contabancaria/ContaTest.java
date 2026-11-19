@@ -111,6 +111,20 @@ class ContaTest {
         assertEquals(saldo + deposito, conta.getSaldo());
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "Joao, 100, 0",
+            "Maria, 200, -10"
+    })
+    void depositar_valor_Invalido(String titular, double saldo, double deposito) {
+        var conta = new Conta(titular, saldo);
+
+        assertTrue(conta.isAtiva());
+
+        assertThrows(IllegalArgumentException.class, () -> {conta.depositar(deposito);});
+        assertEquals(saldo, conta.getSaldo());
+    }
+
     // =======================================================
     // Testes para sacar
     // Sugestão de testes:
