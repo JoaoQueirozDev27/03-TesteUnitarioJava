@@ -99,7 +99,7 @@ class ContaTest {
     // =======================================================
     @ParameterizedTest
     @CsvSource({
-        "Joao, 100, 50"
+            "Joao, 100, 50"
     })
     void depositar_valor_Valido(String titular, double saldo, double deposito) {
         var conta = new Conta(titular, saldo);
@@ -121,7 +121,9 @@ class ContaTest {
 
         assertTrue(conta.isAtiva());
 
-        assertThrows(IllegalArgumentException.class, () -> {conta.depositar(deposito);});
+        assertThrows(IllegalArgumentException.class, () -> {
+            conta.depositar(deposito);
+        });
         assertEquals(saldo, conta.getSaldo());
     }
 
@@ -134,6 +136,21 @@ class ContaTest {
     // - Saque com valor negativo lança IllegalArgumentException
     // - Saque em conta inativa lança IllegalStateException
     // =======================================================
+
+    // Testes para sacar
+    @ParameterizedTest
+    @CsvSource({
+            "Joao, 100, 40",
+    })
+    void sacar_valor_Valido(String titular, double saldo, double saque) {
+        var conta = new Conta(titular, saldo);
+
+        assertTrue(conta.isAtiva());
+
+        conta.sacar(saque);
+
+        assertEquals(saldo - saque, conta.getSaldo());
+    }
 
     // =======================================================
     // Testes para transferir
