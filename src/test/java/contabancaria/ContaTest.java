@@ -152,7 +152,24 @@ class ContaTest {
         assertEquals(saldo - saque, conta.getSaldo());
     }
 
-    
+    @ParameterizedTest
+    @CsvSource({
+            "Joao, 100, 0"
+    })
+    void sacar_valor_Invalido(String titular, double saldo, double saque) {
+        var conta = new Conta(titular, saldo);
+
+        assertTrue(conta.isAtiva());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            conta.sacar(saque);
+        });
+
+        // Verifica se o saldo foi preservado
+        assertEquals(saldo, conta.getSaldo(), 0.001);
+    }
+
+   
     // =======================================================
     // Testes para transferir
     // Sugestão de testes:
