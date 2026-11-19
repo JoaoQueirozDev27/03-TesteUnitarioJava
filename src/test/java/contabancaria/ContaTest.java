@@ -169,7 +169,18 @@ class ContaTest {
         assertEquals(saldo, conta.getSaldo(), 0.001);
     }
 
-   
+     @Test
+    void sacar_valor_AcimaDoSaldo() {
+        var conta = new Conta("Joao", 100);
+
+        assertTrue(conta.isAtiva());
+
+        assertThrows(IllegalStateException.class, () -> {
+            conta.sacar(101);
+        });
+
+        assertEquals(100, conta.getSaldo(), 0.001);
+    }
     // =======================================================
     // Testes para transferir
     // Sugestão de testes:
