@@ -63,7 +63,12 @@ public class Conta {
 
     public void depositar(double valor) {
 
-        throw new UnsupportedOperationException();
+        isAtiva();
+        if (valor <= 0)
+            throw new IllegalArgumentException("O valor retirado não pode ser negativo e nem zero.");
+        if (valor > saldo)
+            throw new IllegalArgumentException("O valor retirado não pode ser maior que o saldo atual.");
+        saldo += valor;
     }
 
     /**
