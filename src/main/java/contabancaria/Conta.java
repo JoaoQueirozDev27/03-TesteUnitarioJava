@@ -63,7 +63,9 @@ public class Conta {
 
     public void depositar(double valor) {
 
-        isAtiva();
+        if (!isAtiva()) {
+            throw new IllegalStateException("A conta está inativa.");
+        }
         if (valor <= 0)
             throw new IllegalArgumentException("O valor retirado não pode ser negativo e nem zero.");
         if (valor > saldo)
