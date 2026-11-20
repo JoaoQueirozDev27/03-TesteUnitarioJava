@@ -228,4 +228,22 @@ class ContaTest {
         // Verifica se o saldo foi preservado
         assertEquals(1, conta.getSaldo(), 0.001);
     }
+
+    @Test
+    void encerrar_conta_Inativa() {
+        var conta = new Conta("Joao", 0);
+
+        // Primeiro encerramento deve funcionar
+        conta.encerrar();
+
+        assertFalse(conta.isAtiva());
+
+        // Segundo encerramento deve lançar exceção
+        assertThrows(IllegalStateException.class, () -> {
+            conta.encerrar();
+        });
+
+        // Verifica se continua inativa
+        assertFalse(conta.isAtiva());
+    }
 }
