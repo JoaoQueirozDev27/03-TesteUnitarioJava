@@ -212,4 +212,20 @@ class ContaTest {
         assertFalse(conta.isAtiva());
     }
 
+    @Test
+    void encerrar_conta_SaldoPositivo() {
+        var conta = new Conta("Joao", 1);
+
+        assertTrue(conta.isAtiva());
+
+        assertThrows(IllegalStateException.class, () -> {
+            conta.encerrar();
+        });
+
+        // Verifica se a conta continua ativa
+        assertTrue(conta.isAtiva());
+
+        // Verifica se o saldo foi preservado
+        assertEquals(1, conta.getSaldo(), 0.001);
+    }
 }
