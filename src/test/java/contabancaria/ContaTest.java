@@ -1,6 +1,7 @@
 package contabancaria;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
@@ -169,7 +170,7 @@ class ContaTest {
         assertEquals(saldo, conta.getSaldo(), 0.001);
     }
 
-     @Test
+    @Test
     void sacar_valor_AcimaDoSaldo() {
         var conta = new Conta("Joao", 100);
 
@@ -199,5 +200,16 @@ class ContaTest {
     // - Encerrar conta já inativa lança IllegalStateException
     // - Conta encerrada tem isAtiva() == false
     // =======================================================
+
+    @Test
+    void encerrar_conta_SaldoZero() {
+        var conta = new Conta("Joao", 0);
+
+        assertTrue(conta.isAtiva());
+
+        conta.encerrar();
+
+        assertFalse(conta.isAtiva());
+    }
 
 }
