@@ -246,4 +246,20 @@ class ContaTest {
         // Verifica se continua inativa
         assertFalse(conta.isAtiva());
     }
+
+    @Test
+    void depositar_conta_Inativa() {
+        var conta = new Conta("Joao", 0);
+
+        conta.encerrar();
+
+        assertFalse(conta.isAtiva());
+
+        assertThrows(IllegalStateException.class, () -> {
+            conta.depositar(50);
+        });
+
+        assertFalse(conta.isAtiva());
+        assertEquals(0, conta.getSaldo(), 0.001);
+    }
 }
